@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e47aec3f-6f66-44af-9251-342facab7e6c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/br/ce/alexleko/servicos/LocacaoServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestesUnitarios.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TestesUnitarios.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/servicos/LocacaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/servicos/LocacaoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/entidades/Filme.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/ce/alexleko/entidades/Filme.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/entidades/Locacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/ce/alexleko/entidades/Locacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/entidades/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/ce/alexleko/entidades/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/servicos/LocacaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/ce/alexleko/servicos/LocacaoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/utils/DataUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/ce/alexleko/utils/DataUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/ce/wcaquino/servicos/LocacaoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/ce/wcaquino/servicos/LocacaoService.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -25,10 +25,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/wcaquino/servicos/LocacaoService.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/br/ce/alexleko/servicos/LocacaoServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+            <state relative-caret-position="136">
+              <caret line="12" column="4" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -43,6 +46,9 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/servicos/LocacaoService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/br/ce/wcaquino/servicos/LocacaoServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/LocacaoServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/br/ce/alexleko/servicos/LocacaoServiceTest.java" />
       </list>
     </option>
   </component>
@@ -111,7 +117,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wcaquino" type="462c0819:PsiDirectoryNode" />
+              <item name="alexleko" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TestesUnitarios" type="b2602c69:ProjectViewProjectNode" />
@@ -119,26 +125,29 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wcaquino" type="462c0819:PsiDirectoryNode" />
-              <item name="entidades" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TestesUnitarios" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TestesUnitarios" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wcaquino" type="462c0819:PsiDirectoryNode" />
+              <item name="alexleko" type="462c0819:PsiDirectoryNode" />
               <item name="servicos" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TestesUnitarios" type="b2602c69:ProjectViewProjectNode" />
               <item name="TestesUnitarios" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TestesUnitarios" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TestesUnitarios" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wcaquino" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TestesUnitarios" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TestesUnitarios" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="servicos" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -152,6 +161,15 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="br.ce.alexleko.servicos" />
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="br.ce.wcaquino.servicos" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -164,17 +182,42 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.LocacaoServiceTest.teste">
+    <configuration name="LocacaoServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestesUnitarios" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value=".*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="br.ce.alexleko.servicos" />
+      <option name="MAIN_CLASS_NAME" value="br.ce.alexleko.servicos.LocacaoServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LocacaoServiceTest.teste" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestesUnitarios" />
+      <option name="PACKAGE_NAME" value="br.ce.alexleko.servicos" />
+      <option name="MAIN_CLASS_NAME" value="br.ce.alexleko.servicos.LocacaoServiceTest" />
+      <option name="METHOD_NAME" value="teste" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LocacaoService.teste" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TestesUnitarios" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="br.ce.wcaquino.servicos.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="br.ce.wcaquino.servicos" />
-      <option name="MAIN_CLASS_NAME" value="br.ce.wcaquino.servicos.LocacaoService" />
+      <option name="PACKAGE_NAME" value="br.ce.alexleko.servicos" />
+      <option name="MAIN_CLASS_NAME" value="br.ce.alexleko.servicos.LocacaoService" />
       <option name="METHOD_NAME" value="teste" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -183,6 +226,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LocacaoServiceTest.teste" />
+        <item itemvalue="JUnit.LocacaoServiceTest" />
         <item itemvalue="JUnit.LocacaoService.teste" />
       </list>
     </recent_temporary>
@@ -204,12 +249,30 @@
     <history-entry file="LocacaoService_teste - 2019.11.11 at 20h 11m 25s.xml">
       <configuration name="LocacaoService.teste" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="LocacaoService_teste - 2019.11.11 at 20h 15m 13s.xml">
+      <configuration name="LocacaoService.teste" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocacaoService_teste - 2019.11.11 at 20h 15m 58s.xml">
+      <configuration name="LocacaoService.teste" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocacaoService_teste - 2019.11.11 at 20h 16m 58s.xml">
+      <configuration name="LocacaoService.teste" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocacaoService_teste - 2019.11.11 at 20h 17m 00s.xml">
+      <configuration name="LocacaoService.teste" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocacaoServiceTest - 2019.11.11 at 20h 27m 55s.xml">
+      <configuration name="LocacaoServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LocacaoServiceTest_teste - 2019.11.11 at 20h 30m 07s.xml">
+      <configuration name="LocacaoServiceTest.teste" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="26" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25506938" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25506938" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -219,15 +282,15 @@
       <window_info anchor="bottom" id="Messages" weight="0.32938644" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32938644" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32938644" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="SonarLint" order="7" />
+      <window_info anchor="bottom" id="SonarLint" order="7" weight="0.32938644" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32938644" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32938644" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -239,38 +302,54 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/wcaquino/entidades/Filme.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/alexleko/entidades/Filme.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/wcaquino/entidades/Locacao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/alexleko/entidades/Locacao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/wcaquino/utils/DataUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/alexleko/utils/DataUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestesUnitarios.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="17" column="10" lean-forward="true" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/wcaquino/servicos/LocacaoService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/br/ce/alexleko/servicos/LocacaoService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+        <state relative-caret-position="437">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/br/ce/alexleko/servicos/LocacaoServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="4" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
