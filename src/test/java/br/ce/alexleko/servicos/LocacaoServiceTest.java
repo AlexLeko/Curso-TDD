@@ -4,10 +4,13 @@ import br.ce.alexleko.entidades.Filme;
 import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
 import br.ce.alexleko.utils.DataUtils;
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Date;
+
+import static org.hamcrest.CoreMatchers.is;
 
 public class LocacaoServiceTest {
 	
@@ -25,9 +28,14 @@ public class LocacaoServiceTest {
 
 
 		// = VERIFICAÇÃO =
-		Assert.assertEquals(5.0, locacao.getValor(),  0.01);
-		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()));
-		Assert.assertTrue(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)));
+
+		// Utilizando: Import Static Method
+		// Encurta as chamadas de metodo. Ex.: CoreMatchers
+		Assert.assertThat(locacao.getValor(), is(CoreMatchers.equalTo(5.0)));
+		Assert.assertThat(locacao.getValor(), is(CoreMatchers.not(9.0)));
+
+		Assert.assertThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+		Assert.assertThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
 	}
 
 }
