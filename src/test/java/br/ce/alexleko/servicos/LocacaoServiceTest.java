@@ -11,7 +11,9 @@ import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -57,33 +59,33 @@ public class LocacaoServiceTest {
 
 
 
-	@Test
-	public void teste() {
-
-		// = CENÁRIO =
-		LocacaoService service = new LocacaoService();
-		Usuario usuario = new Usuario("Usuario 1");
-		Filme filme = new Filme("Filme 1", 2, 5.0);
-
-
-		// = AÇÃO =
-		Locacao locacao = null;
-		try {
-			locacao = service.alugarFilme(usuario, filme);
-
-		// = VERIFICAÇÃO =
-			// Utilizando: Import Static Method
-			// Encurta as chamadas de metodo. Ex.: CoreMatchers
-			assertThat(locacao.getValor(), is(CoreMatchers.equalTo(5.0)));
-			assertThat(locacao.getValor(), is(CoreMatchers.not(9.0)));
-
-			assertThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
-			assertThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void teste() {
+//
+//		// = CENÁRIO =
+//		LocacaoService service = new LocacaoService();
+//		Usuario usuario = new Usuario("Usuario 1");
+//		Filme filme = new Filme("Filme 1", 2, 5.0);
+//
+//
+//		// = AÇÃO =
+//		Locacao locacao = null;
+//		try {
+//			locacao = service.alugarFilme(usuario, filme);
+//
+//		// = VERIFICAÇÃO =
+//			// Utilizando: Import Static Method
+//			// Encurta as chamadas de metodo. Ex.: CoreMatchers
+//			assertThat(locacao.getValor(), is(CoreMatchers.equalTo(5.0)));
+//			assertThat(locacao.getValor(), is(CoreMatchers.not(9.0)));
+//
+//			assertThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
+//			assertThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	// =================
 	// = Teste Isolado =
@@ -94,10 +96,10 @@ public class LocacaoServiceTest {
 
 		// = CENÁRIO =
 		Usuario usuario = new Usuario("Usuario 1");
-		Filme filme = new Filme("Filme 1", 1, 5.0);
+		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
 
 		// = AÇÃO =
-		Locacao locacao = service.alugarFilme(usuario, filme);
+		Locacao locacao = service.alugarFilme(usuario, filmes);
 
 		// = VERIFICAÇÃO =
 		error.checkThat(locacao.getValor(), is(CoreMatchers.equalTo(5.0)));
@@ -112,9 +114,10 @@ public class LocacaoServiceTest {
 	@Test(expected = FilmeSemEstoqueException.class)
 	public void testLocacao_filmesemEstoque() throws Exception {
 		Usuario usuario = new Usuario("Usuario 1");
-		Filme filme = new Filme("Filme 1", 0, 5.0);
+		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 0, 4.0));
 
-		service.alugarFilme(usuario, filme);
+
+		service.alugarFilme(usuario, filmes);
 	}
 
 
@@ -165,11 +168,11 @@ public class LocacaoServiceTest {
 	public void testLocacao_usuarioVazio() throws FilmeSemEstoqueException {
 
 		// cenario
-		Filme filme = new Filme("Filme 1", 1, 5.0);
+		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
 
 		// acao
 		try {
-			service.alugarFilme(null, filme);
+			service.alugarFilme(null, filmes);
 
 			// verificao
 			Assert.fail();
