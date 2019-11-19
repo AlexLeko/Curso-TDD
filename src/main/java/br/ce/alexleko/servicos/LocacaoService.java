@@ -2,6 +2,7 @@ package br.ce.alexleko.servicos;
 
 import static br.ce.alexleko.utils.DataUtils.adicionarDias;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
 import br.ce.alexleko.exceptions.FilmeSemEstoqueException;
 import br.ce.alexleko.exceptions.LocadoraException;
+import br.ce.alexleko.utils.DataUtils;
 
 public class LocacaoService {
 	
@@ -57,7 +59,11 @@ public class LocacaoService {
 		Date dataEntrega = new Date();
 		dataEntrega = adicionarDias(dataEntrega, 1);
 		locacao.setDataRetorno(dataEntrega);
-		
+
+		if (DataUtils.verificarDiaSemana(dataEntrega, Calendar.SUNDAY)) {
+			dataEntrega = adicionarDias(dataEntrega, 1);
+		}
+
 		//Salvando a locacao...	
 		//TODO adicionar método para salvar
 		

@@ -12,11 +12,13 @@ import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class LocacaoServiceTest {
 
@@ -149,7 +151,7 @@ public class LocacaoServiceTest {
 //	public void testLocacao_filmesemEstoque_3() throws Exception {
 //		//cenario
 //		LocacaoService service = new LocacaoService();
-//		Usuario usuario = new Usuario("Usuario 1");
+//		Usuario usuario = new Usuario("Usuario 1");clear
 //		Filme filme = new Filme("Filme 1", 0, 5.0);
 //
 //		// Avisa que deverá ser lancado uma exception
@@ -255,6 +257,20 @@ public class LocacaoServiceTest {
 		// (4 + 4 + 3 + 2 + 1 + 0) -> 100% = 14
 		assertThat(resultado.getValor(), is(14.0));
 	}
+
+	@Test
+	public void naoDeveDevolverFilmeNoDomingo() throws FilmeSemEstoqueException, LocadoraException {
+		Usuario usuario = new Usuario("Usuario 1");
+		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
+
+		Locacao retorno = service.alugarFilme(usuario, filmes);
+
+		boolean isSegunda =  DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);
+
+		assertTrue(isSegunda);
+	}
+
+
 
 
 }
