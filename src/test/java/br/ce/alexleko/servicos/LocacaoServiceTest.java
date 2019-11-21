@@ -6,6 +6,8 @@ import br.ce.alexleko.entidades.Usuario;
 import br.ce.alexleko.exceptions.FilmeSemEstoqueException;
 import br.ce.alexleko.exceptions.LocadoraException;
 import br.ce.alexleko.utils.DataUtils;
+import matchers.DiaSemanaMatcher;
+import matchers.MatchersProprios;
 import org.hamcrest.CoreMatchers;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
@@ -16,6 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static matchers.MatchersProprios.caiEm;
+import static matchers.MatchersProprios.caiNumaSegunda;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -282,9 +286,15 @@ public class LocacaoServiceTest {
 
 		Locacao retorno = service.alugarFilme(usuario, filmes);
 
-		boolean isSegunda =  DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);
+//		boolean isSegunda =  DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);
+//		Assert.assertTrue(isSegunda);
 
-		Assert.assertTrue(isSegunda);
+
+		// Matcher
+//		assertThat(retorno.getDataRetorno(), new DiaSemanaMatcher(Calendar.MONDAY));
+//		assertThat(retorno.getDataRetorno(), caiEm(Calendar.MONDAY));
+		assertThat(retorno.getDataRetorno(), caiNumaSegunda());
+
 	}
 
 
