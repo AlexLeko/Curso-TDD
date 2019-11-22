@@ -8,6 +8,7 @@ import br.ce.alexleko.entidades.Usuario;
 import br.ce.alexleko.exceptions.FilmeSemEstoqueException;
 import br.ce.alexleko.exceptions.LocadoraException;
 import br.ce.alexleko.utils.DataUtils;
+import buildermaster.BuilderMaster;
 import org.hamcrest.CoreMatchers;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
@@ -186,7 +187,7 @@ public class LocacaoServiceTest {
 			Assert.fail();
 
 		} catch (LocadoraException e) {
-			// verificao
+			// verificao/home/s2it_asantos/.m2/repository/junit/junit/4.12
 			assertThat(e.getMessage(), is("Usuario vazio"));
 		}
 	}
@@ -295,6 +296,9 @@ public class LocacaoServiceTest {
 	}
 
 
+	public static void main(String[] args) {
+		new BuilderMaster().gerarCodigoClasse(Locacao.class);
+	}
 
 
 }
