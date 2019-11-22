@@ -1,5 +1,7 @@
 package br.ce.alexleko.servicos;
 
+import br.ce.alexleko.builders.FilmeBuilder;
+import br.ce.alexleko.builders.UsuarioBuilder;
 import br.ce.alexleko.entidades.Filme;
 import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
@@ -16,6 +18,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static br.ce.alexleko.builders.FilmeBuilder.umFilme;
+import static br.ce.alexleko.builders.FilmeBuilder.umFilmeSemEstoque;
+import static br.ce.alexleko.builders.UsuarioBuilder.umUsuario;
 import static br.ce.alexleko.matchers.MatchersProprios.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -98,14 +103,14 @@ public class LocacaoServiceTest {
 		Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
 
 		// = CENÁRIO =
-		Usuario usuario = new Usuario("Usuario 1");
-		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
+		Usuario usuario = umUsuario().agora();
+		List<Filme> filmes = Arrays.asList(umFilme().agora());
 
 		// = AÇÃO =
 		Locacao locacao = service.alugarFilme(usuario, filmes);
 
 		// = VERIFICAÇÃO =
-		error.checkThat(locacao.getValor(), is(CoreMatchers.equalTo(5.0)));
+		error.checkThat(locacao.getValor(), is(CoreMatchers.equalTo(FilmeBuilder.umFilme().comValor(5.0).agora())));
 
 		// Matchers
 		error.checkThat(locacao.getDataLocacao(), ehHoje());
@@ -117,9 +122,8 @@ public class LocacaoServiceTest {
 	// se garantir é o melhor modo a implementar
 	@Test(expected = FilmeSemEstoqueException.class)
 	public void naoDeveAlugarFilmeSemEstoque() throws Exception {
-		Usuario usuario = new Usuario("Usuario 1");
-		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 0, 4.0));
-
+		Usuario usuario = umUsuario().agora();
+		List<Filme> filmes = Arrays.asList(umFilmeSemEstoque().agora());
 
 		service.alugarFilme(usuario, filmes);
 	}
@@ -172,7 +176,7 @@ public class LocacaoServiceTest {
 	public void naoDeveAlugarFilmeSemUsuario() throws FilmeSemEstoqueException {
 
 		// cenario
-		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
+		List<Filme> filmes = Arrays.asList(umFilme().agora());
 
 		// acao
 		try {
@@ -192,7 +196,7 @@ public class LocacaoServiceTest {
 	public void naoDeveAlugarFilmeSemFilme() throws FilmeSemEstoqueException, LocadoraException {
 
 		//cenario
-		Usuario usuario = new Usuario("Usuario 1");
+		Usuario usuario = umUsuario().agora();
 
 		// verificacao
 		exception.expect(LocadoraException.class);
@@ -274,9 +278,8 @@ public class LocacaoServiceTest {
 		// Define que se for SATURDAY esse teste deve ser realizado.
 		Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
 
-
-		Usuario usuario = new Usuario("Usuario 1");
-		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
+		Usuario usuario = umUsuario().agora();
+		List<Filme> filmes = Arrays.asList(umFilme().agora());
 
 		Locacao retorno = service.alugarFilme(usuario, filmes);
 

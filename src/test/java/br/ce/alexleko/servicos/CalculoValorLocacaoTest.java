@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static br.ce.alexleko.builders.FilmeBuilder.umFilme;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -45,13 +46,13 @@ public class CalculoValorLocacaoTest {
 
 
     // Filmes Mock por Variaveis
-    private static Filme filme_1 = new Filme("Filme 1", 2, 4.0);
-    private static Filme filme_2 = new Filme("Filme 2", 2, 4.0);
-    private static Filme filme_3 = new Filme("Filme 3", 2, 4.0);
-    private static Filme filme_4 = new Filme("Filme 4", 2, 4.0);
-    private static Filme filme_5 = new Filme("Filme 5", 2, 4.0);
-    private static Filme filme_6 = new Filme("Filme 6", 2, 4.0);
-    private static Filme filme_7 = new Filme("Filme 7", 2, 4.0);
+    private static Filme filme_1 = umFilme().agora();
+    private static Filme filme_2 = umFilme().agora();
+    private static Filme filme_3 = umFilme().agora();
+    private static Filme filme_4 = umFilme().agora();
+    private static Filme filme_5 = umFilme().agora();
+    private static Filme filme_6 = umFilme().agora();
+    private static Filme filme_7 = umFilme().agora();
 
     // NAME = variaveis é o valor do @Parameter.
     @Parameterized.Parameters(name = "Cenário: {index} = {2}")
