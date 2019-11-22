@@ -6,8 +6,6 @@ import br.ce.alexleko.entidades.Usuario;
 import br.ce.alexleko.exceptions.FilmeSemEstoqueException;
 import br.ce.alexleko.exceptions.LocadoraException;
 import br.ce.alexleko.utils.DataUtils;
-import matchers.DiaSemanaMatcher;
-import matchers.MatchersProprios;
 import org.hamcrest.CoreMatchers;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
@@ -18,17 +16,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static matchers.MatchersProprios.caiEm;
-import static matchers.MatchersProprios.caiNumaSegunda;
+import static matchers.MatchersProprios.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class LocacaoServiceTest {
 
 	private LocacaoService service;
-
-	// exercicio
 
 	// o JUnit sempre inicialia a variavel, para um resultado não afetar outro teste
 	// com um variavel static o valor passa para o escopo de classe e não muda.
@@ -99,7 +93,6 @@ public class LocacaoServiceTest {
 
 	@Test
 	public void deveAlugarFilme() throws Exception {
-
 		// Assumptions
 		// Define que se for SATURDAY esse teste NÃO deve ser realizado.
 		Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
@@ -113,9 +106,10 @@ public class LocacaoServiceTest {
 
 		// = VERIFICAÇÃO =
 		error.checkThat(locacao.getValor(), is(CoreMatchers.equalTo(5.0)));
-		error.checkThat(DataUtils.isMesmaData(locacao.getDataLocacao(), new Date()), is(true));
-		error.checkThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterDataComDiferencaDias(1)), is(true));
 
+		// Matchers
+		error.checkThat(locacao.getDataLocacao(), ehHoje());
+		error.checkThat(locacao.getDataRetorno(), ehHojeComDiferencaDias(1));
 	}
 
 	// Esperando uma exception - Annotation
