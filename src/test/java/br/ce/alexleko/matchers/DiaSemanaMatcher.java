@@ -1,4 +1,4 @@
-package matchers;
+package br.ce.alexleko.matchers;
 
 import br.ce.alexleko.utils.DataUtils;
 import org.hamcrest.Description;

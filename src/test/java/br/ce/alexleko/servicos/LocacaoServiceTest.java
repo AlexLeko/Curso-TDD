@@ -16,7 +16,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static matchers.MatchersProprios.*;
+import static br.ce.alexleko.matchers.MatchersProprios.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
