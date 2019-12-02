@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import br.ce.alexleko.dao.LocacaoDAO;
 import br.ce.alexleko.entidades.Filme;
 import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
@@ -14,7 +15,10 @@ import br.ce.alexleko.exceptions.LocadoraException;
 import br.ce.alexleko.utils.DataUtils;
 
 public class LocacaoService {
-	
+
+	private LocacaoDAO dao;
+
+
 	public Locacao alugarFilme(Usuario usuario, List<Filme> filmes) throws FilmeSemEstoqueException, LocadoraException {
 
 		if (usuario == null) {
@@ -65,8 +69,8 @@ public class LocacaoService {
 		locacao.setDataRetorno(dataEntrega);
 
 		//Salvando a locacao...	
-		//TODO adicionar método para salvar
-		
+		dao.salvar(locacao);
+
 		return locacao;
 	}
 
