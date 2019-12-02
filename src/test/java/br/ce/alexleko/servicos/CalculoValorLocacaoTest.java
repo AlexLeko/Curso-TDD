@@ -48,6 +48,10 @@ public class CalculoValorLocacaoTest {
         // Instancia Fake com Mockito
         LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
         service.setLocacaoDAO(dao);
+
+        // Mock do SPC
+        SPCService spc = Mockito.mock(SPCService.class);
+        service.setSpcService(spc);
     }
 
 

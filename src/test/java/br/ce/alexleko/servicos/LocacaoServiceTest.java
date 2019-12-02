@@ -24,6 +24,7 @@ import static br.ce.alexleko.matchers.MatchersProprios.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 public class LocacaoServiceTest {
 
@@ -33,6 +34,9 @@ public class LocacaoServiceTest {
 	// com um variavel static o valor passa para o escopo de classe e não muda.
 	//private static int contador = 0;
 
+	// Para o Mockito encontrar, tem que estar no escopo Global.
+	private LocacaoDAO dao;
+	private SPCService spc;
 
 	@Rule
 	public ErrorCollector error = new ErrorCollector();
@@ -46,8 +50,12 @@ public class LocacaoServiceTest {
 		service = new LocacaoService();
 
 		// Instancia Fake com Mockito
-		LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
+		dao = Mockito.mock(LocacaoDAO.class);
 		service.setLocacaoDAO(dao);
+
+		// Mock do SPC
+		spc = Mockito.mock(SPCService.class);
+		service.setSpcService(spc);
 	}
 
 //	@After
@@ -298,10 +306,27 @@ public class LocacaoServiceTest {
 
 	}
 
+	@Test
+	public void naoDeveAlugarFilmeParaNegativadoSPC() throws FilmeSemEstoqueException, LocadoraException {
+		// cenario
+		Usuario usuario = umUsuario().agora();
+//		Usuario usuario2 = umUsuario().comNome("Usuario 2").agora();
+		List<Filme> filmes = Arrays.asList(umFilme().agora());
 
-//	public static void main(String[] args) {
-//		new BuilderMaster().gerarCodigoClasse(Locacao.class);
-//	}
+		// Mockito define os valores Default da tipagem da variavel;
+		// Define o valor desejado (diferente de Default) para a chamada do metodo;
+		when(spc.possuiNegativacao(usuario)).thenReturn(true);
+
+		// Espero que lance essa exception
+		exception.expect(LocadoraException.class);
+		exception.expectMessage("Usuário Negativado");
+
+		// acao
+		service.alugarFilme(usuario, filmes);
+
+		// caso crie usuario2, nao esta definido o retorno, o Mockito criou o retorno para o usuario.
+//		service.alugarFilme(usuario2, filmes);
+	}
 
 
 }

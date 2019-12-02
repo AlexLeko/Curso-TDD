@@ -37,9 +37,9 @@ j
 :src/test/java/br/ce/alexleko/servicos/CalculadoraTest.java,4/0/407d8eeccd2d9c3cffed48a0fd635f7dc1d0b672
 r
 Bsrc/test/java/br/ce/alexleko/servicos/CalculoValorLocacaoTest.java,c/a/ca59d68ea9e84c23b3b9505d425176232d6e5afd
-\
-,src/test/java/matchers/DiaSemanaMatcher.java,d/b/db6aad6186857c5302a958f9bad01fc4d53a1774
-\
-,src/test/java/matchers/MatchersProprios.java,b/9/b91ff2ace1729d97dcd81401a6d8365526e6dd35
 d
-4src/test/java/matchers/DataDiferencaDiasMatcher.java,7/8/78c4784d2db0360f9bc3ddcdb346164937ed4ede
+4src/main/java/br/ce/alexleko/dao/LocacaoDAOFake.java,9/1/914e26aa61c22247981ad8c26b4792e4c56d84ea
+`
+0src/main/java/br/ce/alexleko/dao/LocacaoDAO.java,2/c/2c063e43dd77866746bc6e61137e85ec5a513c64
+k
+;src/test/java/br/ce/alexleko/matchers/MatchersProprios.java,4/1/4185e5d8071ab876326821f6387dd344022c36a4
