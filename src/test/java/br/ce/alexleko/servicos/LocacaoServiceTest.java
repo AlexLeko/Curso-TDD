@@ -2,6 +2,8 @@ package br.ce.alexleko.servicos;
 
 import br.ce.alexleko.builders.FilmeBuilder;
 import br.ce.alexleko.builders.UsuarioBuilder;
+import br.ce.alexleko.dao.LocacaoDAO;
+import br.ce.alexleko.dao.LocacaoDAOFake;
 import br.ce.alexleko.entidades.Filme;
 import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
@@ -24,6 +26,7 @@ import static br.ce.alexleko.builders.FilmeBuilder.umFilmeSemEstoque;
 import static br.ce.alexleko.builders.UsuarioBuilder.umUsuario;
 import static br.ce.alexleko.matchers.MatchersProprios.*;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class LocacaoServiceTest {
@@ -45,6 +48,10 @@ public class LocacaoServiceTest {
 	@Before
 	public void setup() {
 		service = new LocacaoService();
+
+		// Instancia do DAO fake
+		LocacaoDAO dao = new LocacaoDAOFake();
+		service.setLocacaoDAO(dao);
 	}
 
 //	@After
@@ -105,13 +112,13 @@ public class LocacaoServiceTest {
 
 		// = CENÁRIO =
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(umFilme().agora());
+		List<Filme> filmes = Arrays.asList(umFilme().comValor(5.0).agora());
 
 		// = AÇÃO =
 		Locacao locacao = service.alugarFilme(usuario, filmes);
 
 		// = VERIFICAÇÃO =
-		error.checkThat(locacao.getValor(), is(CoreMatchers.equalTo(FilmeBuilder.umFilme().comValor(5.0).agora())));
+		error.checkThat(locacao.getValor(), is(equalTo(5.0)));
 
 		// Matchers
 		error.checkThat(locacao.getDataLocacao(), ehHoje());

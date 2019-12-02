@@ -1,5 +1,7 @@
 package br.ce.alexleko.servicos;
 
+import br.ce.alexleko.dao.LocacaoDAO;
+import br.ce.alexleko.dao.LocacaoDAOFake;
 import br.ce.alexleko.entidades.Filme;
 import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
@@ -42,6 +44,10 @@ public class CalculoValorLocacaoTest {
     @Before
     public void setup() {
         service = new LocacaoService();
+
+        // Instancia do DAO fake
+        LocacaoDAO dao = new LocacaoDAOFake();
+        service.setLocacaoDAO(dao);
     }
 
 
