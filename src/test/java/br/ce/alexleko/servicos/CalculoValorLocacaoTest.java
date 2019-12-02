@@ -1,7 +1,6 @@
 package br.ce.alexleko.servicos;
 
 import br.ce.alexleko.dao.LocacaoDAO;
-import br.ce.alexleko.dao.LocacaoDAOFake;
 import br.ce.alexleko.entidades.Filme;
 import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
@@ -11,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,8 +45,8 @@ public class CalculoValorLocacaoTest {
     public void setup() {
         service = new LocacaoService();
 
-        // Instancia do DAO fake
-        LocacaoDAO dao = new LocacaoDAOFake();
+        // Instancia Fake com Mockito
+        LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
         service.setLocacaoDAO(dao);
     }
 

@@ -1,20 +1,16 @@
 package br.ce.alexleko.servicos;
 
-import br.ce.alexleko.builders.FilmeBuilder;
-import br.ce.alexleko.builders.UsuarioBuilder;
 import br.ce.alexleko.dao.LocacaoDAO;
-import br.ce.alexleko.dao.LocacaoDAOFake;
 import br.ce.alexleko.entidades.Filme;
 import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
 import br.ce.alexleko.exceptions.FilmeSemEstoqueException;
 import br.ce.alexleko.exceptions.LocadoraException;
 import br.ce.alexleko.utils.DataUtils;
-import buildermaster.BuilderMaster;
-import org.hamcrest.CoreMatchers;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -49,8 +45,8 @@ public class LocacaoServiceTest {
 	public void setup() {
 		service = new LocacaoService();
 
-		// Instancia do DAO fake
-		LocacaoDAO dao = new LocacaoDAOFake();
+		// Instancia Fake com Mockito
+		LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
 		service.setLocacaoDAO(dao);
 	}
 
@@ -303,9 +299,9 @@ public class LocacaoServiceTest {
 	}
 
 
-	public static void main(String[] args) {
-		new BuilderMaster().gerarCodigoClasse(Locacao.class);
-	}
+//	public static void main(String[] args) {
+//		new BuilderMaster().gerarCodigoClasse(Locacao.class);
+//	}
 
 
 }

@@ -2,7 +2,6 @@
   <library name="Maven: junit:junit:4.12">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libs/builderMaster.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-javadoc.jar!/" />
