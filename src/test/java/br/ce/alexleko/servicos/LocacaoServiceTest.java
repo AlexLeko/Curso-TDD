@@ -19,12 +19,13 @@ import java.util.List;
 
 import static br.ce.alexleko.builders.FilmeBuilder.umFilme;
 import static br.ce.alexleko.builders.FilmeBuilder.umFilmeSemEstoque;
+import static br.ce.alexleko.builders.LocacaoBuilder.*;
 import static br.ce.alexleko.builders.UsuarioBuilder.umUsuario;
 import static br.ce.alexleko.matchers.MatchersProprios.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class LocacaoServiceTest {
 
@@ -37,6 +38,8 @@ public class LocacaoServiceTest {
 	// Para o Mockito encontrar, tem que estar no escopo Global.
 	private LocacaoDAO dao;
 	private SPCService spc;
+	private EmailService email;
+
 
 	@Rule
 	public ErrorCollector error = new ErrorCollector();
@@ -56,6 +59,10 @@ public class LocacaoServiceTest {
 		// Mock do SPC
 		spc = Mockito.mock(SPCService.class);
 		service.setSpcService(spc);
+
+		// Mock Email
+		email = Mockito.mock(EmailService.class);
+		service.setEmailService(email);
 	}
 
 //	@After
@@ -307,7 +314,7 @@ public class LocacaoServiceTest {
 	}
 
 	@Test
-	public void naoDeveAlugarFilmeParaNegativadoSPC() throws FilmeSemEstoqueException, LocadoraException {
+	public void naoDeveAlugarFilmeParaNegativadoSPC() throws FilmeSemEstoqueException {
 		// cenario
 		Usuario usuario = umUsuario().agora();
 //		Usuario usuario2 = umUsuario().comNome("Usuario 2").agora();
@@ -318,15 +325,53 @@ public class LocacaoServiceTest {
 		when(spc.possuiNegativacao(usuario)).thenReturn(true);
 
 		// Espero que lance essa exception
-		exception.expect(LocadoraException.class);
-		exception.expectMessage("Usuário Negativado");
+		// quando se lança a exception nao tem mais controle para verificacoes,
+		// por isso refatorei com o modo try/catch.s
+
+//		exception.expect(LocadoraException.class);
+//		exception.expectMessage("Usuário Negativado");
 
 		// acao
-		service.alugarFilme(usuario, filmes);
+		try {
+			service.alugarFilme(usuario, filmes);
+
+		//verificacao
+			Assert.fail();
+		} catch (LocadoraException e) {
+			Assert.assertThat(e.getMessage(), is("Usuário Negativado"));
+		}
 
 		// caso crie usuario2, nao esta definido o retorno, o Mockito criou o retorno para o usuario.
 //		service.alugarFilme(usuario2, filmes);
+
+		verify(spc).possuiNegativacao(usuario);
 	}
 
+	@Test
+	public void deveEnviarEmailParaLocacoesAtrasadas() {
+		//cenario
+		Usuario usuario = umUsuario().agora();
+		// teste erro
+//		Usuario usuario2 = umUsuario().comNome("Usuario 2").agora();
+
+		List<Locacao> locacoes = Arrays.asList(
+				umLocacao()
+					.comUsuario(usuario)
+					.comDataRetorno(DataUtils.obterDataComDiferencaDias(-2))
+				.agora());
+
+		//expectativa
+		when(dao.obterLocacoesPendentes()).thenReturn(locacoes);
+
+		//acao
+		service.notificarAtrasos();
+
+		//verificacao
+		// verifica se no EmailService chamou o notificar, para este usuario, com sucesso.
+		verify(email).notificarAtraso(usuario);
+
+		// teste erro
+//		verify(email).notificarAtraso(usuario2);
+	}
 
 }

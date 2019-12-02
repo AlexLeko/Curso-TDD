@@ -32,4 +32,12 @@ public class Usuario {
 	public int hashCode() {
 		return nome != null ? nome.hashCode() : 0;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("Usuario{");
+		sb.append("nome='").append(nome).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
 }
