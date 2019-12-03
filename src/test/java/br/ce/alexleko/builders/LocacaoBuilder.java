@@ -10,6 +10,7 @@ import java.util.Date;
 import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.utils.DataUtils;
 
+import static br.ce.alexleko.utils.DataUtils.obterDataComDiferencaDias;
 import static java.util.Arrays.*;
 
 
@@ -30,7 +31,7 @@ public class LocacaoBuilder {
         elemento.setUsuario(UsuarioBuilder.umUsuario().agora());
         elemento.setFilmes(Arrays.asList(FilmeBuilder.umFilme().agora()));
         elemento.setDataLocacao(new Date());
-        elemento.setDataRetorno(DataUtils.obterDataComDiferencaDias(1));
+        elemento.setDataRetorno(obterDataComDiferencaDias(1));
         elemento.setValor(4.0);
     }
 
@@ -53,6 +54,13 @@ public class LocacaoBuilder {
         elemento.setDataRetorno(param);
         return this;
     }
+
+    public LocacaoBuilder atrasado() {
+        elemento.setDataLocacao(obterDataComDiferencaDias(-4));
+        elemento.setDataRetorno(obterDataComDiferencaDias(-2));
+        return this;
+    }
+
 
     public LocacaoBuilder comValor(Double param) {
         elemento.setValor(param);

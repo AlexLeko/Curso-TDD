@@ -323,6 +323,8 @@ public class LocacaoServiceTest {
 		// Mockito define os valores Default da tipagem da variavel;
 		// Define o valor desejado (diferente de Default) para a chamada do metodo;
 		when(spc.possuiNegativacao(usuario)).thenReturn(true);
+		// Validando para qualquer Usuario, deixando mais generico.
+		//when(spc.possuiNegativacao(Mockito.any(Usuario.class))).thenReturn(true);
 
 		// Espero que lance essa exception
 		// quando se lança a exception nao tem mais controle para verificacoes,
@@ -352,13 +354,19 @@ public class LocacaoServiceTest {
 		//cenario
 		Usuario usuario = umUsuario().agora();
 		// teste erro
-//		Usuario usuario2 = umUsuario().comNome("Usuario 2").agora();
+		Usuario usuario2 = umUsuario().comNome("Usuario em dia").agora();
+		Usuario usuario3 = umUsuario().comNome("Atrasado").agora();
 
 		List<Locacao> locacoes = Arrays.asList(
 				umLocacao()
-					.comUsuario(usuario)
-					.comDataRetorno(DataUtils.obterDataComDiferencaDias(-2))
-				.agora());
+					.comUsuario(usuario).atrasado().agora(),
+				umLocacao()
+					.comUsuario(usuario2).agora(),
+				umLocacao()
+					.comUsuario(usuario3).atrasado().agora(),
+				umLocacao()
+					.comUsuario(usuario3).atrasado().agora()
+		);
 
 		//expectativa
 		when(dao.obterLocacoesPendentes()).thenReturn(locacoes);
@@ -369,9 +377,28 @@ public class LocacaoServiceTest {
 		//verificacao
 		// verifica se no EmailService chamou o notificar, para este usuario, com sucesso.
 		verify(email).notificarAtraso(usuario);
+		//verify(email).notificarAtraso(usuario3);
 
-		// teste erro
-//		verify(email).notificarAtraso(usuario2);
+		// verifica no email que o notificar NUNCA ocorreu.
+		verify(email, never()).notificarAtraso(usuario2);
+
+		// garante que nenhum outro e-mail foi enviado, além dos VERIFY que listei.
+		// caso deixe de verificar algum elemento, não vai passar o test.
+		//verifyNoMoreInteractions(email);
+
+		// ===  somente para conhecimento  ===
+
+		// garante que não ocorreu nenhum acesso ao SPC;
+		verifyZeroInteractions(spc);
+
+		// verifica se enviou mais de uma vez no mesmo e-mail
+		verify(email, times(2)).notificarAtraso(usuario3);	// enviou 2x no mesmo e-mail
+		verify(email, Mockito.atMost(5)).notificarAtraso(usuario3);		// No Maximo
+		verify(email, Mockito.atLeastOnce()).notificarAtraso(usuario3);		// No minimo uma vez
+
+		// verifica quantos email foram lançados independente de qual usuario.
+		verify(email, times(3)).notificarAtraso(Mockito.any(Usuario.class));
+
 	}
 
 }
