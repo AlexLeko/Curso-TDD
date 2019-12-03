@@ -10,7 +10,10 @@ import br.ce.alexleko.utils.DataUtils;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -29,15 +32,20 @@ import static org.mockito.Mockito.*;
 
 public class LocacaoServiceTest {
 
+	// Injetar os Mocks nesta classe.
+	@InjectMocks
 	private LocacaoService service;
 
 	// o JUnit sempre inicialia a variavel, para um resultado não afetar outro teste
 	// com um variavel static o valor passa para o escopo de classe e não muda.
 	//private static int contador = 0;
 
-	// Para o Mockito encontrar, tem que estar no escopo Global.
+	// Mock por Annotations
+	@Mock
 	private LocacaoDAO dao;
+	@Mock
 	private SPCService spc;
+	@Mock
 	private EmailService email;
 
 
@@ -50,19 +58,22 @@ public class LocacaoServiceTest {
 
 	@Before
 	public void setup() {
-		service = new LocacaoService();
+		// inicializa os Mocks
+		MockitoAnnotations.initMocks(this);
 
-		// Instancia Fake com Mockito
-		dao = Mockito.mock(LocacaoDAO.class);
-		service.setLocacaoDAO(dao);
-
-		// Mock do SPC
-		spc = Mockito.mock(SPCService.class);
-		service.setSpcService(spc);
-
-		// Mock Email
-		email = Mockito.mock(EmailService.class);
-		service.setEmailService(email);
+//		service = new LocacaoService();
+//
+//		// Instancia Fake com Mockito
+//		dao = Mockito.mock(LocacaoDAO.class);
+//		service.setLocacaoDAO(dao);
+//
+//		// Mock do SPC
+//		spc = Mockito.mock(SPCService.class);
+//		service.setSpcService(spc);
+//
+//		// Mock Email
+//		email = Mockito.mock(EmailService.class);
+//		service.setEmailService(email);
 	}
 
 //	@After

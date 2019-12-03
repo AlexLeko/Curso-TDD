@@ -8,7 +8,6 @@ import br.ce.alexleko.entidades.Usuario;
 import java.util.Arrays;
 import java.util.Date;
 import br.ce.alexleko.entidades.Locacao;
-import br.ce.alexleko.utils.DataUtils;
 
 import static br.ce.alexleko.utils.DataUtils.obterDataComDiferencaDias;
 import static java.util.Arrays.*;

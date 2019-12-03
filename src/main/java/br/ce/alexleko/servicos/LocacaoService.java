@@ -95,17 +95,17 @@ public class LocacaoService {
 
 	// SET
 
-	public void setLocacaoDAO(LocacaoDAO dao) {
-		this.dao = dao;
-	}
+//	public void setLocacaoDAO(LocacaoDAO dao) {
+//		this.dao = dao;
+//	}
 
-	public void setSpcService (SPCService spc) {
-		this.spcService = spc;
-	}
+//	public void setSpcService (SPCService spc) {
+//		this.spcService = spc;
+//	}
 
-	public void setEmailService (EmailService email) {
-		emailService = email;
-	}
+//	public void setEmailService (EmailService email) {
+//		emailService = email;
+//	}
 
 
 }

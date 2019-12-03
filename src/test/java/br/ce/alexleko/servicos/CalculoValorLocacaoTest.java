@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.mockito.Mockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,7 +29,14 @@ public class CalculoValorLocacaoTest {
     // =   DATA DRIVEN TEST   =
     // ========================
 
+    @InjectMocks
     private LocacaoService service;
+
+    @Mock
+    private LocacaoDAO dao;
+    @Mock
+    private SPCService spc;
+
 
     // Variaveis utilizadas na construção do objeto do @Parameters.
     // intitulado value = 0;
@@ -43,15 +52,17 @@ public class CalculoValorLocacaoTest {
 
     @Before
     public void setup() {
-        service = new LocacaoService();
+        MockitoAnnotations.initMocks(this);
 
-        // Instancia Fake com Mockito
-        LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
-        service.setLocacaoDAO(dao);
-
-        // Mock do SPC
-        SPCService spc = Mockito.mock(SPCService.class);
-        service.setSpcService(spc);
+//        service = new LocacaoService();
+//
+//        // Instancia Fake com Mockito
+//        LocacaoDAO dao = Mockito.mock(LocacaoDAO.class);
+//        service.setLocacaoDAO(dao);
+//
+//        // Mock do SPC
+//        SPCService spc = Mockito.mock(SPCService.class);
+//        service.setSpcService(spc);
     }
 
 
