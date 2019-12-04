@@ -10,10 +10,7 @@ import br.ce.alexleko.utils.DataUtils;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -430,6 +427,25 @@ public class LocacaoServiceTest {
 
 		// acao
 		service.alugarFilme(usuario, filmes);
+	}
+
+	@Test
+	public void deveProrrogarUmaLocacao() {
+		// cenario
+		Locacao locacao = umLocacao().agora();
+
+		// acao
+		service.prorrogarLocacao(locacao, 3);
+
+		// verificacao
+		// Cria um objeto para capturar os valores criados no SALVAR e retorna-lo.
+		ArgumentCaptor<Locacao> argCaptor = ArgumentCaptor.forClass(Locacao.class);
+		verify(dao).salvar(argCaptor.capture());
+		Locacao locacaoRetornada = argCaptor.getValue();
+
+		error.checkThat(locacaoRetornada.getValor(), is(12.0));
+		error.checkThat(locacaoRetornada.getDataLocacao(), ehHoje());
+		error.checkThat(locacaoRetornada.getDataRetorno(), ehHojeComDiferencaDias(3));
 	}
 
 }
