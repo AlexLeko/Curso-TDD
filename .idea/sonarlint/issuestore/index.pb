@@ -43,3 +43,9 @@ d
 0src/main/java/br/ce/alexleko/dao/LocacaoDAO.java,2/c/2c063e43dd77866746bc6e61137e85ec5a513c64
 k
 ;src/test/java/br/ce/alexleko/matchers/MatchersProprios.java,4/1/4185e5d8071ab876326821f6387dd344022c36a4
+e
+5src/main/java/br/ce/alexleko/servicos/SPCService.java,a/0/a00effef1c6d08138a1ae17d509c4d96cbb76278
+n
+>src/test/java/br/ce/alexleko/servicos/CalculadoraMockTest.java,6/8/685accedfb3603dabfabddad2a122b6e1a70c71f
+i
+9src/test/java/br/ce/alexleko/builders/LocacaoBuilder.java,f/8/f81d5fd11b2e399223d5ac73cc9224a5b1cf3dd7

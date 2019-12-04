@@ -4,6 +4,7 @@ import br.ce.alexleko.entidades.Usuario;
 
 public interface SPCService {
 
-    boolean possuiNegativacao (Usuario usuario);
+    // Pode lançar uma exception, Para Tratar no Test.
+    boolean possuiNegativacao (Usuario usuario) throws Exception;
 
 }

@@ -1,5 +1,6 @@
 package br.ce.alexleko.servicos;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -20,6 +21,6 @@ public class CalculadoraMockTest {
         Mockito.when(calc.somar(Mockito.eq(1), Mockito.anyInt() )).thenReturn(5);
 
         // quando definido, qualquer soma diferente dos matchers acima, tera o retorno Default do tipo.
-        System.out.println(calc.somar(1,2));
+        Assert.assertEquals(5, calc.somar(1,2));
     }
 }
