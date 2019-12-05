@@ -49,3 +49,5 @@ n
 >src/test/java/br/ce/alexleko/servicos/CalculadoraMockTest.java,6/8/685accedfb3603dabfabddad2a122b6e1a70c71f
 i
 9src/test/java/br/ce/alexleko/builders/LocacaoBuilder.java,f/8/f81d5fd11b2e399223d5ac73cc9224a5b1cf3dd7
+s
+Csrc/test/java/br/ce/alexleko/matchers/DataDiferencaDiasMatcher.java,f/8/f8b296c26b806e9323635a1bdf415b154b144251
