@@ -65,6 +65,9 @@ public class LocacaoServiceTest {
 		// inicializa os Mocks
 		MockitoAnnotations.initMocks(this);
 
+		// SPY - Powermock
+		service = PowerMockito.spy(service);
+
 //		service = new LocacaoService();
 //
 //		// Instancia Fake com Mockito
@@ -496,6 +499,26 @@ public class LocacaoServiceTest {
 		error.checkThat(locacaoRetornada.getValor(), is(12.0));
 		error.checkThat(locacaoRetornada.getDataLocacao(), ehHoje());
 		error.checkThat(locacaoRetornada.getDataRetorno(), ehHojeComDiferencaDias(3));
+	}
+
+	@Test
+	public void deveAlugarFilme_SemCalcularValor() throws Exception {
+		// utiliza o SPY do PowerMockito instanciado no @Before.
+		// Não executa o metodo de calculo do valor.
+
+		// cenario
+		Usuario usuario = umUsuario().agora();
+		List<Filme> filmes = Arrays.asList(umFilme().agora());
+
+		// Mockando um metodo PRIVATE e definindo o valor de retorno.
+		PowerMockito.doReturn(1.0).when(service, "calcularValorLocacao", filmes);
+
+		// ação
+		Locacao locacao = service.alugarFilme(usuario, filmes);
+
+		// verificação
+		Assert.assertThat(locacao.getValor(), is(1.0));	// modo normal
+		PowerMockito.verifyPrivate(service).invoke("calcularValorLocacao", filmes);	// modo PM
 	}
 
 }
