@@ -10,10 +10,13 @@ import br.ce.alexleko.utils.DataUtils;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import org.mockito.*;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +30,9 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
+@RunWith(PowerMockRunner.class)
+// prepara o ambiente dessa classe de acordo com as classes informadas para receber as modificações do powerMock.
+@PrepareForTest({ LocacaoService.class, DataUtils.class } )
 public class LocacaoServiceTest {
 
 	// Injetar os Mocks nesta classe.
@@ -127,7 +133,13 @@ public class LocacaoServiceTest {
 	public void deveAlugarFilme() throws Exception {
 		// Assumptions
 		// Define que se for SATURDAY esse teste NÃO deve ser realizado.
-		Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+		//Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+
+		// = Power Mockito =
+		// Deve definir um novo Runner na classe. @RunWith(PowerMockRunner.class)
+		// Quando executar uma nova instancia da classe Date, sem argumentos, retorna a data mockada. (SABADO)
+		PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(DataUtils.obterData(11, 12, 2019));
+
 
 		// = CENÁRIO =
 		Usuario usuario = umUsuario().agora();
@@ -142,6 +154,10 @@ public class LocacaoServiceTest {
 		// Matchers
 		error.checkThat(locacao.getDataLocacao(), ehHoje());
 		error.checkThat(locacao.getDataRetorno(), ehHojeComDiferencaDias(1));
+
+		// valida a data de acordo com a data mockada pelo PowerMock.
+		error.checkThat(DataUtils.isMesmaData(locacao.getDataLocacao(), DataUtils.obterData( 11, 12, 2019)), is(true));
+		error.checkThat(DataUtils.isMesmaData(locacao.getDataRetorno(), DataUtils.obterData( 12, 12, 2019)), is(true));
 	}
 
 	// Esperando uma exception - Annotation
@@ -299,11 +315,17 @@ public class LocacaoServiceTest {
 
 	@Test
 //	@Ignore		// Ignora este teste
-	public void naoDeveDevolverFilmeNoDomingo() throws FilmeSemEstoqueException, LocadoraException {
+	public void naoDeveDevolverFilmeNoDomingo() throws Exception {
 
-		// Assumptions
+		// = Assumptions =
 		// Define que se for SATURDAY esse teste deve ser realizado.
-		Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+		// Se não for sabado este teste é ignorado, mas não dará erro.
+		//Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+
+		// = Power Mockito =
+		// Deve definir um novo Runner na classe. @RunWith(PowerMockRunner.class)
+		// Quando executar uma nova instancia da classe Date, sem argumentos, retorna a data mockada. (SABADO)
+		PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(DataUtils.obterData(14, 12, 2019));
 
 		Usuario usuario = umUsuario().agora();
 		List<Filme> filmes = Arrays.asList(umFilme().agora());
@@ -313,12 +335,14 @@ public class LocacaoServiceTest {
 //		boolean isSegunda =  DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);
 //		Assert.assertTrue(isSegunda);
 
-
 		// Matcher
 //		assertThat(retorno.getDataRetorno(), new DiaSemanaMatcher(Calendar.MONDAY));
 //		assertThat(retorno.getDataRetorno(), caiEm(Calendar.MONDAY));
 		assertThat(retorno.getDataRetorno(), caiNumaSegunda());
 
+		// verificar se o construtor da classe foi chamado.
+		// espera que invoque 2X o construtor da classe Date.
+		PowerMockito.verifyNew(Date.class, Mockito.times(2)).withNoArguments();
 	}
 
 	@Test
