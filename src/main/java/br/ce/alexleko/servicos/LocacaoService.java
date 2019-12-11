@@ -50,7 +50,8 @@ public class LocacaoService {
 		Locacao locacao = new Locacao();
 		locacao.setFilmes(filmes);
 		locacao.setUsuario(usuario);
-		locacao.setDataLocacao(new Date());
+//		locacao.setDataLocacao(new Date());
+		locacao.setDataLocacao(Calendar.getInstance().getTime()); // teste com class static
 
 		Double valorTotal = 0d;
 
@@ -72,7 +73,8 @@ public class LocacaoService {
 		locacao.setValor(valorTotal);
 
 		//Entrega no dia seguinte
-		Date dataEntrega = new Date();
+//		Date dataEntrega = new Date();
+		Date dataEntrega = Calendar.getInstance().getTime(); // teste com class static
 		dataEntrega = adicionarDias(dataEntrega, 1);
 
 		if (DataUtils.verificarDiaSemana(dataEntrega, Calendar.SUNDAY)) {

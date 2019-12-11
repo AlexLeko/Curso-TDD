@@ -17,6 +17,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 // prepara o ambiente dessa classe de acordo com as classes informadas para receber as modificações do powerMock.
-@PrepareForTest({ LocacaoService.class, DataUtils.class } )
+@PrepareForTest({ LocacaoService.class } )
 public class LocacaoServiceTest {
 
 	// Injetar os Mocks nesta classe.
@@ -131,6 +132,11 @@ public class LocacaoServiceTest {
 
 	@Test
 	public void deveAlugarFilme() throws Exception {
+
+		// = CENÁRIO =
+		Usuario usuario = umUsuario().agora();
+		List<Filme> filmes = Arrays.asList(umFilme().comValor(5.0).agora());
+
 		// Assumptions
 		// Define que se for SATURDAY esse teste NÃO deve ser realizado.
 		//Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
@@ -138,12 +144,16 @@ public class LocacaoServiceTest {
 		// = Power Mockito =
 		// Deve definir um novo Runner na classe. @RunWith(PowerMockRunner.class)
 		// Quando executar uma nova instancia da classe Date, sem argumentos, retorna a data mockada. (SABADO)
-		PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(DataUtils.obterData(11, 12, 2019));
+		//PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(DataUtils.obterData(11, 12, 2019));
 
+		// Se estiver usando o Calendar ou uma classe STATIC
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_MONTH, 11);
+		calendar.set(Calendar.MONTH, Calendar.DECEMBER);
+		calendar.set(Calendar.YEAR, 2019);
 
-		// = CENÁRIO =
-		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(umFilme().comValor(5.0).agora());
+		PowerMockito.mockStatic(Calendar.class);
+		PowerMockito.when(Calendar.getInstance()).thenReturn(calendar);
 
 		// = AÇÃO =
 		Locacao locacao = service.alugarFilme(usuario, filmes);
@@ -152,8 +162,8 @@ public class LocacaoServiceTest {
 		error.checkThat(locacao.getValor(), is(equalTo(5.0)));
 
 		// Matchers
-		error.checkThat(locacao.getDataLocacao(), ehHoje());
-		error.checkThat(locacao.getDataRetorno(), ehHojeComDiferencaDias(1));
+//		error.checkThat(locacao.getDataLocacao(), ehHoje());
+//		error.checkThat(locacao.getDataRetorno(), ehHojeComDiferencaDias(1));
 
 		// valida a data de acordo com a data mockada pelo PowerMock.
 		error.checkThat(DataUtils.isMesmaData(locacao.getDataLocacao(), DataUtils.obterData( 11, 12, 2019)), is(true));
@@ -317,6 +327,10 @@ public class LocacaoServiceTest {
 //	@Ignore		// Ignora este teste
 	public void naoDeveDevolverFilmeNoDomingo() throws Exception {
 
+		// cenario
+		Usuario usuario = umUsuario().agora();
+		List<Filme> filmes = Arrays.asList(umFilme().agora());
+
 		// = Assumptions =
 		// Define que se for SATURDAY esse teste deve ser realizado.
 		// Se não for sabado este teste é ignorado, mas não dará erro.
@@ -324,11 +338,19 @@ public class LocacaoServiceTest {
 
 		// = Power Mockito =
 		// Deve definir um novo Runner na classe. @RunWith(PowerMockRunner.class)
+		// Deve preparar as classes - @PrepareForTest({LocacaoService.class, DataUtils.class})
 		// Quando executar uma nova instancia da classe Date, sem argumentos, retorna a data mockada. (SABADO)
-		PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(DataUtils.obterData(14, 12, 2019));
+		//PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(DataUtils.obterData(14, 12, 2019));
 
-		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(umFilme().agora());
+		// expectativa - static
+		// Se estiver usando o Calendar ou uma classe STATIC
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_MONTH, 14);
+		calendar.set(Calendar.MONTH, Calendar.DECEMBER);
+		calendar.set(Calendar.YEAR, 2019);
+
+		PowerMockito.mockStatic(Calendar.class);
+		PowerMockito.when(Calendar.getInstance()).thenReturn(calendar);
 
 		Locacao retorno = service.alugarFilme(usuario, filmes);
 
@@ -342,7 +364,11 @@ public class LocacaoServiceTest {
 
 		// verificar se o construtor da classe foi chamado.
 		// espera que invoque 2X o construtor da classe Date.
-		PowerMockito.verifyNew(Date.class, Mockito.times(2)).withNoArguments();
+		//PowerMockito.verifyNew(Date.class, Mockito.times(2)).withNoArguments();
+
+		// Verificar se o método static foi chamado.
+		PowerMockito.verifyStatic(Mockito.times(2));
+		Calendar.getInstance();
 	}
 
 	@Test
