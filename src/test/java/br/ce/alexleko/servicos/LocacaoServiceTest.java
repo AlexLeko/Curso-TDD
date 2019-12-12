@@ -10,16 +10,10 @@ import br.ce.alexleko.utils.DataUtils;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.mockito.*;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static br.ce.alexleko.builders.FilmeBuilder.umFilme;
@@ -32,13 +26,11 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
-@RunWith(PowerMockRunner.class)
-// prepara o ambiente dessa classe de acordo com as classes informadas para receber as modificações do powerMock.
-@PrepareForTest({ LocacaoService.class } )
 public class LocacaoServiceTest {
 
 	// Injetar os Mocks nesta classe.
 	@InjectMocks
+	@Spy
 	private LocacaoService service;
 
 	// o JUnit sempre inicialia a variavel, para um resultado não afetar outro teste
@@ -65,9 +57,6 @@ public class LocacaoServiceTest {
 	public void setup() {
 		// inicializa os Mocks
 		MockitoAnnotations.initMocks(this);
-
-		// SPY - Powermock
-		service = PowerMockito.spy(service);
 
 //		service = new LocacaoService();
 //
@@ -145,19 +134,7 @@ public class LocacaoServiceTest {
 		// Define que se for SATURDAY esse teste NÃO deve ser realizado.
 		//Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
 
-		// = Power Mockito =
-		// Deve definir um novo Runner na classe. @RunWith(PowerMockRunner.class)
-		// Quando executar uma nova instancia da classe Date, sem argumentos, retorna a data mockada. (SABADO)
-		//PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(DataUtils.obterData(11, 12, 2019));
-
-		// Se estiver usando o Calendar ou uma classe STATIC
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.DAY_OF_MONTH, 11);
-		calendar.set(Calendar.MONTH, Calendar.DECEMBER);
-		calendar.set(Calendar.YEAR, 2019);
-
-		PowerMockito.mockStatic(Calendar.class);
-		PowerMockito.when(Calendar.getInstance()).thenReturn(calendar);
+		Mockito.doReturn(DataUtils.obterData(11, 12, 2019)).when(service).obterData();
 
 		// = AÇÃO =
 		Locacao locacao = service.alugarFilme(usuario, filmes);
@@ -346,16 +323,9 @@ public class LocacaoServiceTest {
 		// Quando executar uma nova instancia da classe Date, sem argumentos, retorna a data mockada. (SABADO)
 		//PowerMockito.whenNew(Date.class).withNoArguments().thenReturn(DataUtils.obterData(14, 12, 2019));
 
-		// expectativa - static
-		// Se estiver usando o Calendar ou uma classe STATIC
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.DAY_OF_MONTH, 14);
-		calendar.set(Calendar.MONTH, Calendar.DECEMBER);
-		calendar.set(Calendar.YEAR, 2019);
+		Mockito.doReturn(DataUtils.obterData(14, 12, 2019)).when(service).obterData();
 
-		PowerMockito.mockStatic(Calendar.class);
-		PowerMockito.when(Calendar.getInstance()).thenReturn(calendar);
-
+		// -ação-
 		Locacao retorno = service.alugarFilme(usuario, filmes);
 
 //		boolean isSegunda =  DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.MONDAY);
@@ -366,13 +336,6 @@ public class LocacaoServiceTest {
 //		assertThat(retorno.getDataRetorno(), caiEm(Calendar.MONDAY));
 		assertThat(retorno.getDataRetorno(), caiNumaSegunda());
 
-		// verificar se o construtor da classe foi chamado.
-		// espera que invoque 2X o construtor da classe Date.
-		//PowerMockito.verifyNew(Date.class, Mockito.times(2)).withNoArguments();
-
-		// Verificar se o método static foi chamado.
-		PowerMockito.verifyStatic(Mockito.times(2));
-		Calendar.getInstance();
 	}
 
 	@Test
@@ -502,26 +465,32 @@ public class LocacaoServiceTest {
 		error.checkThat(locacaoRetornada.getDataRetorno(), ehHojeComDiferencaDias(3));
 	}
 
-	@Test
-	public void deveAlugarFilme_SemCalcularValor() throws Exception {
-		// utiliza o SPY do PowerMockito instanciado no @Before.
-		// Não executa o metodo de calculo do valor.
 
-		// cenario
-		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(umFilme().agora());
+	// === METODOS PRIVADOS ===
+	// Mockar metodos privados não é uma boa estratégia.
 
-		// Mockando um metodo PRIVATE e definindo o valor de retorno.
-		PowerMockito.doReturn(1.0).when(service, "calcularValorLocacao", filmes);
+//	@Test
+//	public void deveAlugarFilme_SemCalcularValor() throws Exception {
+//		// utiliza o SPY do PowerMockito instanciado no @Before.
+//		// Não executa o metodo de calculo do valor.
+//
+//		// cenario
+//		Usuario usuario = umUsuario().agora();
+//		List<Filme> filmes = Arrays.asList(umFilme().agora());
+//
+//		// Mockando um metodo PRIVATE e definindo o valor de retorno.
+//		PowerMockito.doReturn(1.0).when(service, "calcularValorLocacao", filmes);
+//
+//		// ação
+//		Locacao locacao = service.alugarFilme(usuario, filmes);
+//
+//		// verificação
+//		Assert.assertThat(locacao.getValor(), is(1.0));	// modo normal
+//		PowerMockito.verifyPrivate(service).invoke("calcularValorLocacao", filmes);	// modo PM
+//	}
 
-		// ação
-		Locacao locacao = service.alugarFilme(usuario, filmes);
 
-		// verificação
-		Assert.assertThat(locacao.getValor(), is(1.0));	// modo normal
-		PowerMockito.verifyPrivate(service).invoke("calcularValorLocacao", filmes);	// modo PM
-	}
-
+	// Testando metodos PRIVADOS sem PowerMock.
 	@Test
 	public void deveCalcularValorLocacao() throws Exception {
 		// Testar um método Privado
@@ -530,7 +499,15 @@ public class LocacaoServiceTest {
 		List<Filme> filmes = Arrays.asList(umFilme().agora());
 
 		// - ação -
-		Double valor = (Double) Whitebox.invokeMethod(service, "calcularValorLocacao", filmes);
+
+		// Reflection
+		Class<LocacaoService> clazz = LocacaoService.class;
+		// getDeclaredMethod => acessa todos os metodos da classe, até os privados.
+		Method metodo = clazz.getDeclaredMethod("calcularValorLocacao", List.class);
+		metodo.setAccessible(true);
+		Double valor = (Double) metodo.invoke(service, filmes);
+
+//		Double valor = (Double) Whitebox.invokeMethod(service, "calcularValorLocacao", filmes);
 
 		// - verificação -
 		Assert.assertThat(valor, is(4.0));

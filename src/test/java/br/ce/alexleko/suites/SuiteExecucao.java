@@ -9,10 +9,10 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
+//@RunWith(Suite.class)
 @Suite.SuiteClasses({
     // Teste que desejo executer nesta suite;
-        CalculadoraTest.class,
+//        CalculadoraTest.class,
         CalculoValorLocacaoTest.class,
         LocacaoServiceTest.class
 })
@@ -22,14 +22,15 @@ public class SuiteExecucao {
     // Tem problemas com ferramenta de Integração Continua, pois ela executa todos os testes que existir.
     // |-> com isso executa os testes da suite 2 vezes.
 
-    @BeforeClass
-    public static void before() {
-        // Ex.: Criar um mock de banco de dados.
-        System.out.println("= BEFORE =");
-    }
+//    @BeforeClass
+//    public static void before() {
+//        // Ex.: Criar um mock de banco de dados.
+//        System.out.println("= BEFORE =");
+//    }
 
-    @AfterClass
-    public static void after() {
-        System.out.println("= AFTER =");
-    }
+//    @AfterClass
+//    public static void after() {
+//        System.out.println("= AFTER =");
+//    }
+
 }
