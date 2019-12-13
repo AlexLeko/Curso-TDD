@@ -2,14 +2,13 @@ package br.ce.alexleko.servicos;
 
 import br.ce.alexleko.exceptions.NaoPodeDividirPorZeroException;
 import br.ce.alexleko.runners.ParallelRunner;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 
-@RunWith(ParallelRunner.class)
+//@RunWith(ParallelRunner.class)
 public class CalculadoraTest {
+
+    public static StringBuffer ordem = new StringBuffer();
 
     private Calculadora calc;
 
@@ -17,12 +16,19 @@ public class CalculadoraTest {
     public void setup() {
         calc = new Calculadora();
         System.out.println("Iniciando...");
+        ordem.append("1");
     }
 
     @After
     public void tearDown() {
         System.out.println("Finalizado!");
     }
+
+    @AfterClass
+    public static void tearDownClasss() {
+        System.out.println(ordem.toString());
+    }
+
 
 
     @Test

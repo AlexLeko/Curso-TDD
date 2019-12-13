@@ -7,10 +7,7 @@ import br.ce.alexleko.entidades.Usuario;
 import br.ce.alexleko.exceptions.FilmeSemEstoqueException;
 import br.ce.alexleko.exceptions.LocadoraException;
 import br.ce.alexleko.utils.DataUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
@@ -60,6 +57,19 @@ public class LocacaoServiceTest_PowerMock {
 
 		// SPY - Powermock
 		service = PowerMockito.spy(service);
+
+		System.out.println("Iniciando 4");
+		CalculadoraTest.ordem.append(4);
+	}
+
+	@After
+	public void tearDown() {
+		System.out.println("Finalizado 4");
+	}
+
+	@AfterClass
+	public static void tearDownClasss() {
+		System.out.println(CalculadoraTest.ordem.toString());
 	}
 
 

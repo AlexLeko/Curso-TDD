@@ -28,7 +28,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
-@RunWith(ParallelRunner.class)
+//@RunWith(ParallelRunner.class)
 public class LocacaoServiceTest {
 
 	// Injetar os Mocks nesta classe.
@@ -61,6 +61,7 @@ public class LocacaoServiceTest {
 		// inicializa os Mocks
 		MockitoAnnotations.initMocks(this);
 
+		CalculadoraTest.ordem.append("2");
 		System.out.println("Iniciando 2");
 
 //		service = new LocacaoService();
@@ -81,6 +82,11 @@ public class LocacaoServiceTest {
 	@After
 	public void tearDown() {
 		System.out.println("Finalizado 2");
+	}
+
+	@AfterClass
+	public static void tearDownClasss() {
+		System.out.println(CalculadoraTest.ordem.toString());
 	}
 
 //	@After
