@@ -6,10 +6,12 @@ import br.ce.alexleko.entidades.Locacao;
 import br.ce.alexleko.entidades.Usuario;
 import br.ce.alexleko.exceptions.FilmeSemEstoqueException;
 import br.ce.alexleko.exceptions.LocadoraException;
+import br.ce.alexleko.runners.ParallelRunner;
 import br.ce.alexleko.utils.DataUtils;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 import org.mockito.*;
 
 import java.lang.reflect.Method;
@@ -26,6 +28,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
+@RunWith(ParallelRunner.class)
 public class LocacaoServiceTest {
 
 	// Injetar os Mocks nesta classe.
@@ -58,6 +61,8 @@ public class LocacaoServiceTest {
 		// inicializa os Mocks
 		MockitoAnnotations.initMocks(this);
 
+		System.out.println("Iniciando 2");
+
 //		service = new LocacaoService();
 //
 //		// Instancia Fake com Mockito
@@ -71,6 +76,11 @@ public class LocacaoServiceTest {
 //		// Mock Email
 //		email = Mockito.mock(EmailService.class);
 //		service.setEmailService(email);
+	}
+
+	@After
+	public void tearDown() {
+		System.out.println("Finalizado 2");
 	}
 
 //	@After

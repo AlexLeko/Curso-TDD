@@ -51,3 +51,11 @@ i
 9src/test/java/br/ce/alexleko/builders/LocacaoBuilder.java,f/8/f81d5fd11b2e399223d5ac73cc9224a5b1cf3dd7
 s
 Csrc/test/java/br/ce/alexleko/matchers/DataDiferencaDiasMatcher.java,f/8/f8b296c26b806e9323635a1bdf415b154b144251
+i
+9src/test/java/br/ce/alexleko/builders/UsuarioBuilder.java,9/0/908094048bc13c298352f35f81520c581146a04e
+g
+7src/main/java/br/ce/alexleko/servicos/TimerService.java,a/9/a9976362321f28f8a8e489c4559c67c99aa35111
+f
+6src/test/java/br/ce/alexleko/suites/SuiteExecucao.java,a/2/a2b2362694abdf211e1bf5a04a8f359f4a4551aa
+w
+Gsrc/test/java/br/ce/alexleko/servicos/LocacaoServiceTest_PowerMock.java,7/e/7ebed7b835715e0cb0fd718e848953f33ef615c7
